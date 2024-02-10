@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 ''' unittest for base_model '''
 import unittest
+import os
 from datetime import datetime
 from models.base_model import BaseModel
 
@@ -44,6 +45,24 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(test_model.to_dict()['created_at'], test1)
         self.assertEqual(test_model.to_dict()['updated_at'], test2)
         self.assertEqual(test_model.to_dict()['__class__'], 'BaseModel')
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp.json")
+        except FileNotFoundError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+        try:
+            os.rename("tmp.json", "file.json")
+        except FileNotFoundError:
+            pass
 
 
 if __name__ == "__main__":
