@@ -10,11 +10,19 @@ class BaseModel:
     """
     BaseModel class definition
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """ BaseModel initialisation """
         self.id = str(uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
+        tformat = "%Y-%m-%dT%H:%M:%S.%f"
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    self.__dict__[key] = datetime.strptime(value, tformat)
+                else:
+                    self.__dict__[key] = value
 
     def save(self):
         """
