@@ -185,7 +185,7 @@ class HBNBCommand(cmd.Cmd):
         Default behavior for cmd module when input is invalid
         """
         arg_list = arg.split('.')
-    
+
         if len(arg_list) == 2:
             cls_nm = arg_list[0]  # incoming class name
             command = arg_list[1].split('(')
